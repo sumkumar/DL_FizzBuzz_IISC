@@ -1,5 +1,36 @@
 import sys
 import tensorflow as tf
+import sys
+import numpy as np
+BASE = 2
+MAX_VAL = 1000
+
+def base_len(size, base):
+    i = 0
+    while size != 0:
+        i = i+1
+        size = int(size / base)
+    return i
+
+
+def structurize_data(data, size):
+    str_data = np.ndarray((len(data), size), dtype='float')
+    for i in range(len(data)):
+        for j in range(size):
+            x = data[i]%(BASE ** (j+1))
+            str_data[i][j] = (int(x/(BASE ** j)))
+    return str_data
+
+
+def get_label(label, val):
+    if label == 0:
+        return "fizzbuzz"
+    if label == 1:
+        return "fizz"
+    if label == 2:
+        return "buzz"
+    if label == 3:
+        return str(val)
 
 
 def fizz_buzz_logic(val):
@@ -26,15 +57,20 @@ def soft_1(test_file):
 
 
 def soft_2(test_file):
+    size = base_len(MAX_VAL, BASE) + 1
+    test_file = "test_input.txt"
     model = tf.keras.models.load_model('model/fizz_buzz_model.h5')
     orig_stdout = sys.stdout
     f = open('Software2.txt', 'w')
     sys.stdout = f
     g = open(test_file, "r")
-    test_inp = int(g)
+    test_inp = [int(i) for i in g]
+    test_inp = structurize_data(test_inp, size)
     predictions = model.predict_classes(test_inp)
+    i = 0
     for x in predictions:
-        print(x)
+        i = i + 1
+        print(get_label(x, i))
     sys.stdout = orig_stdout
     g.close()
     f.close()
