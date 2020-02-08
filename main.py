@@ -70,7 +70,7 @@ def soft_2(test_file):
     i = 0
     for x in predictions:
         i = i + 1
-        print(get_label(x, i))
+        print(get_label(x, test_inp[i]))
     sys.stdout = orig_stdout
     g.close()
     f.close()
