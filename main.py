@@ -11,6 +11,12 @@ def base_len(size, base):
         i = i+1
         size = int(size / base)
     return i
+    
+def get_num(inp_arr):
+    x = 0
+    for i in range(len(inp_arr) - 1, 0, -1):
+        x = x + ((BASE**i) * inp_arr[i])
+    return x
 
 
 def structurize_data(data, size):
@@ -30,7 +36,7 @@ def get_label(label, val):
     if label == 2:
         return "buzz"
     if label == 3:
-        return str(val)
+        return str(get_num(val))
 
 
 def fizz_buzz_logic(val):
@@ -58,7 +64,7 @@ def soft_1(test_file):
 
 def soft_2(test_file):
     size = base_len(MAX_VAL, BASE) + 1
-    test_file = "test_input.txt"
+    //test_file = "test_input.txt"
     model = tf.keras.models.load_model('model/fizz_buzz_model.h5')
     orig_stdout = sys.stdout
     f = open('Software2.txt', 'w')
@@ -69,8 +75,8 @@ def soft_2(test_file):
     predictions = model.predict_classes(test_inp)
     i = 0
     for x in predictions:
-        i = i + 1
         print(get_label(x, test_inp[i]))
+        i = i + 1
     sys.stdout = orig_stdout
     g.close()
     f.close()
