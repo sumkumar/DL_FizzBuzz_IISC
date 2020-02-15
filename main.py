@@ -36,7 +36,7 @@ def get_label(label, val):
     if label == 2:
         return "buzz"
     if label == 3:
-        return str(get_num(val))
+        return str(val)
 
 
 def fizz_buzz_logic(val):
@@ -70,12 +70,12 @@ def soft_2(test_file):
     f = open('Software2.txt', 'w')
     sys.stdout = f
     g = open(test_file, "r")
-    test_inp = [int(i) for i in g]
-    test_inp = structurize_data(test_inp, size)
-    predictions = model.predict_classes(test_inp)
+    test_inp_num = [int(i) for i in g]
+    test_inp_arr = structurize_data(test_inp_num, size)
+    predictions = model.predict_classes(test_inp_arr)
     i = 0
     for x in predictions:
-        print(get_label(x, test_inp[i]))
+        print(get_label(x, test_inp_num[i]))
         i = i + 1
     sys.stdout = orig_stdout
     g.close()
