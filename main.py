@@ -64,7 +64,7 @@ def soft_1(test_file):
 
 def soft_2(test_file):
     size = base_len(MAX_VAL, BASE) + 1
-    //test_file = "test_input.txt"
+    # test_file = "test_input.txt"
     model = tf.keras.models.load_model('model/fizz_buzz_model.h5')
     orig_stdout = sys.stdout
     f = open('Software2.txt', 'w')
